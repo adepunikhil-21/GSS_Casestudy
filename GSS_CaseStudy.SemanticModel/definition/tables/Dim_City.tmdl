@@ -1,0 +1,51 @@
+table Dim_City
+	lineageTag: a82356f5-c84a-4767-a302-c53ce0d809c2
+
+	column Country
+		dataType: string
+		lineageTag: 79f7e02b-4485-43ac-a475-7a19ddc70e9a
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: dafd1d2c-2f31-4334-8407-279eeb3e9e7a
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 7da293f5-fc81-4af5-aff3-dd447c386e42
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 3ef2caa1-d8bb-43c0-aa75-121eed8918e9
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_City-af9dfb2f-61c3-42ce-82d7-aad32188b464 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("ANIKHI01PC0722\SQLEXPRESS"),
+				    #"Case Study" = Source{[Name="Case Study"]}[Data],
+				    #"dbo_Orders$" = #"Case Study"{[Schema="dbo",Item="Orders$"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(#"dbo_Orders$",{"Product Name", "Customer Name", "Returned", "Order Priority", "Sales", "Quantity", "Discount", "Profit", "Shipping Cost", "Product ID", "Category", "Sub-Category", "Market", "Segment", "Row ID", "Order ID", "Order Date", "Ship Date", "Ship Mode", "Customer ID"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Columns"),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Removed Duplicates", {"City"}),
+				    #"Removed Duplicates1" = Table.Distinct(#"Removed Errors", {"City"})
+				in
+				    #"Removed Duplicates1"
+
+	annotation PBI_ResultType = Table
+

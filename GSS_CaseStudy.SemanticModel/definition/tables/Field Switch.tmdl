@@ -1,0 +1,48 @@
+table 'Field Switch'
+	lineageTag: af767f38-4814-44c8-8e99-ae77c668914c
+
+	column 'Field Switch'
+		lineageTag: 5dda17c5-91f8-4793-bad7-722d59076e64
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Field Switch Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Field Switch Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Field Switch Fields'
+		isHidden
+		lineageTag: 6562bb8d-376a-45d6-8bb9-bb8f848f9eb9
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Field Switch Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Field Switch Order'
+		isHidden
+		formatString: 0
+		lineageTag: 40ab0256-020c-46cb-8afd-7c8c67ddd964
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Field Switch' = calculated
+		mode: import
+		source =
+				{
+				    ("Segment", NAMEOF('Fact_Orders'[Segment]), 0),
+				    ("Category", NAMEOF('Dim_Subcategory'[Category]), 1)
+				}
+
+	annotation PBI_Id = 09be26a806684744b3cbcdd56e1038ad
+

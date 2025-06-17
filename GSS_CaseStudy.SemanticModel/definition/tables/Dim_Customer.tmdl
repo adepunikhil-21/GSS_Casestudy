@@ -1,0 +1,33 @@
+table Dim_Customer
+	lineageTag: fb64d987-0a24-4a1c-a0b3-cd6eda761df1
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 022b2595-e15b-499b-afaf-a675155839e4
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: 6b6ee0b6-511d-4b8c-b996-e531a75172ec
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Customer-b1d35f53-3068-4609-952f-f701a08f709d = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("ANIKHI01PC0722\SQLEXPRESS"),
+				    #"Case Study" = Source{[Name="Case Study"]}[Data],
+				    #"dbo_Orders$" = #"Case Study"{[Schema="dbo",Item="Orders$"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(#"dbo_Orders$",{"Product Name", "Row ID", "Order ID", "Order Date", "Ship Date", "Ship Mode", "Segment", "Country", "Market", "Product ID", "Category", "Sub-Category", "Sales", "Quantity", "Discount", "Profit", "Shipping Cost", "Order Priority", "City", "State", "Region", "Returned"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Columns")
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "999ebfb6b5873d8311f0",
+  "position": {
+    "x": 480.00000000000006,
+    "y": 432,
+    "z": 1000,
+    "height": 160,
+    "width": 288
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "amazon_sales_data 2025"
+                    }
+                  },
+                  "Property": "max_month"
+                }
+              },
+              "queryRef": "amazon_sales_data 2025.max_month",
+              "nativeQueryRef": "max_month"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

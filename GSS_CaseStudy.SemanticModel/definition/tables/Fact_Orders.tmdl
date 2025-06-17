@@ -1,0 +1,239 @@
+table Fact_Orders
+	lineageTag: eed477a7-f34e-4e86-952b-310ec6d8b3b0
+
+	column 'Row ID'
+		dataType: double
+		lineageTag: a1c06f8b-d862-430f-87bd-aaf04cf1a7f5
+		summarizeBy: count
+		sourceColumn: Row ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Order ID'
+		dataType: string
+		lineageTag: 16ce3602-7af1-46a7-a576-15e4efe6971c
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e5e6269c-49f6-488e-b7d7-6956c5e36d3e
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b533c32f-d0ff-4eab-bb81-c24706e83a33
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		variation Variation
+			isDefault
+			relationship: 6599600a-6eec-4363-b72a-ec8bc55ba7f8
+			defaultHierarchy: LocalDateTable_38e90962-c808-41ee-8806-b4bdd7baa483.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Mode'
+		dataType: string
+		lineageTag: ca41c45c-996a-4fd5-89ba-cc0b367ffc5a
+		summarizeBy: none
+		sourceColumn: Ship Mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 789e2eca-cec7-418d-8fe6-7408928cc370
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: cb68f93b-3502-4670-a8dc-edaf68a6e8e3
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Market
+		dataType: string
+		lineageTag: 725efa67-3f47-4ef8-8856-9d56f534ae80
+		summarizeBy: none
+		sourceColumn: Market
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product ID'
+		dataType: string
+		lineageTag: 74a9124f-6c12-41c8-bf48-f9e1febbda6c
+		summarizeBy: none
+		sourceColumn: Product ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-Category
+		dataType: string
+		lineageTag: 7e4d70e4-d04c-4638-ae42-c1a0db226299
+		summarizeBy: none
+		sourceColumn: Sub-Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		dataType: double
+		lineageTag: fe4349cc-c727-477a-bf10-232427a08455
+		summarizeBy: sum
+		sourceColumn: Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: int64
+		lineageTag: 88bbb534-0a9c-4e48-9086-88db36bf8176
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discount
+		dataType: double
+		lineageTag: 0258a881-69c1-4f5b-918b-1d351de1dd7f
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Profit
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 6ecb964b-db6a-426a-a06f-6d985af42092
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = User
+
+	column 'Shipping Cost'
+		dataType: double
+		lineageTag: 52a9ed5c-0e4f-43c3-bade-7f74dcf8c3af
+		summarizeBy: sum
+		sourceColumn: Shipping Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Order Priority'
+		dataType: string
+		lineageTag: 7e15a8e0-dbd1-40eb-9bee-010d4209ef22
+		summarizeBy: none
+		sourceColumn: Order Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: c6453fa1-acf8-4993-a22e-cadf3b0d2973
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 96e1a196-59e1-40d7-9aeb-e3e0bedb3161
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Returned
+		dataType: string
+		lineageTag: c2d4ac92-f974-4d9e-b641-05536651686e
+		summarizeBy: none
+		sourceColumn: Returned
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'No.of Days for shipping'
+		dataType: int64
+		formatString: 0
+		lineageTag: 57323844-3642-4e52-a17f-17b625b7abd0
+		summarizeBy: sum
+		sourceColumn: No.of Days for shipping
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Price' = Fact_Orders[Sales] * Fact_Orders[Quantity] + Fact_Orders[Shipping Cost]
+		lineageTag: e5aae925-a72a-4301-93a2-8fc4fb1b8d90
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cost Price' = Fact_Orders[Total Price] - Fact_Orders[Profit]
+		lineageTag: eeda563e-c2cf-41ac-a8a8-71a07a38cf9c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Product name' = RELATED(Dim_Product[Product Name])
+		lineageTag: 69c1e9b5-06e1-402c-9a5c-5bd7909d9c38
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Region Hierarchy'
+		lineageTag: c026e01c-2a38-4d3d-b162-b3c679515f49
+
+		level Region
+			lineageTag: 489bbcbe-de31-436f-8fbb-46592c2cce04
+			column: Region
+
+		level Market
+			lineageTag: f8f60487-17d4-4769-ac68-8b07e6c8f5c9
+			column: Market
+
+		level City
+			lineageTag: 17e84f86-0615-4056-8b24-dc2cf7cc719b
+			column: City
+
+	partition Fact_Orders-dafbd691-b2f9-4b3d-a70a-3ed298b440e6 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("ANIKHI01PC0722\SQLEXPRESS"),
+				    #"Case Study" = Source{[Name="Case Study"]}[Data],
+				    #"dbo_Orders$" = #"Case Study"{[Schema="dbo",Item="Orders$"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(#"dbo_Orders$",{"Product Name", "Category", "Customer Name", "Country", "State"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Columns", "No.of Days for shipping", each [Ship Date] - [Order Date]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"No.of Days for shipping", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Sales", "Sales"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

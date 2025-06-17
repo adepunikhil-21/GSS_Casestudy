@@ -1,0 +1,91 @@
+table Calculatetable
+	lineageTag: 3cbc774a-1c0d-4451-9341-4f31f9087bd1
+
+	column 'Order ID'
+		lineageTag: 181ae437-562e-42d0-aa83-2430298e87d0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Order ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		formatString: General Date
+		lineageTag: bb575231-e150-4759-96d2-c7badddf7907
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Order Date]
+
+		variation Variation
+			isDefault
+			relationship: 5f3dc692-af88-499d-941a-d5ed4d75bf6f
+			defaultHierarchy: LocalDateTable_bec5d0aa-8a82-4e8f-89c7-b3e4f0926305.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		lineageTag: 2920572d-ab07-429e-b470-4a9a6a676217
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Customer ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Market
+		lineageTag: f4d5344c-e64f-4eef-9d93-0cdec4bb5416
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Market]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit
+		lineageTag: 9c52ddb3-054e-4f88-88d9-b4e18015c64e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Profit]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Order Priority'
+		lineageTag: ca660f41-b7ec-4db8-9982-94022a5daafc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Order Priority]
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		lineageTag: bdb74eb5-b637-45b5-bbf8-51a9b25b8933
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[City]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Price'
+		lineageTag: 49e4ded3-4efa-4aae-9231-852b7fc26251
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Total Price]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sub-Category
+		lineageTag: 0db65a88-2edf-4786-a527-6a15cdb5dbd0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Sub-Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calculatetable = calculated
+		mode: import
+		source = CALCULATETABLE(SUMMARIZECOLUMNS(Fact_Orders[City],Fact_Orders[Customer ID],Fact_Orders[Market],Fact_Orders[Order Date],Fact_Orders[Order ID],Fact_Orders[Order Priority],Fact_Orders[Profit],Fact_Orders[Total Price],Fact_Orders[Sub-Category]),Fact_Orders[Segment] = "Consumer")
+
+	annotation PBI_Id = 4f5d595c12954f9f9941d7c6d36df8e0
+

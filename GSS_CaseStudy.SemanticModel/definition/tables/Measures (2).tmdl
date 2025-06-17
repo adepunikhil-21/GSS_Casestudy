@@ -1,0 +1,516 @@
+table 'Measures (2)'
+	lineageTag: aaadd340-923d-4e2b-9821-3996c8026fe6
+
+	measure 'Total Sales' = SUM(Fact_Orders[Sales])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: d085febf-95d3-4f48-a9a5-d92b6017eced
+
+		changedProperty = FormatString
+
+	measure MTD = TOTALMTD([Total Sales],DimDate[Date])
+		lineageTag: 94859f9b-e8f9-4b9d-a0a1-cdbaf864ec42
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure QTD = TOTALQTD([Total Sales],DimDate[Date])
+		lineageTag: 70afd2cb-d0d7-480d-8051-e289cfe7e750
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTD = TOTALYTD([Total Sales],DimDate[Date])
+		lineageTag: 37df7459-9e43-49df-8211-f117252276ed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure WTD = ```
+			CALCULATE([Total Sales],     
+			        FILTER (
+			            ALL ( 'DimDate' ),
+			            'DimDate'[Year] = SELECTEDVALUE( 'DimDate'[Year] )
+			                && 'DimDate'[Week Number] = SELECTEDVALUE('DimDate'[Week Number])
+			                && 'DimDate'[Weekday Number] <= MAX ( 'DimDate'[Weekday Number] )
+			        )
+			)
+			```
+		lineageTag: 7518f053-fe81-4959-9f08-ee1707810574
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Previous Month' = CALCULATE([Total Sales],PREVIOUSMONTH('DimDate'[Date]))
+		lineageTag: 5655b3bd-f552-4f00-895b-1ca11cbfbe95
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Previous Quarter' = CALCULATE([Total Sales],PREVIOUSQUARTER('DimDate'[Date]))
+		lineageTag: 1d0028cf-8a25-4697-b4da-9f144ec7e4a0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Previous Week' = CALCULATE([Total Sales], DATEADD('DimDate'[Date],-7,DAY))
+		lineageTag: 9e976742-1bc3-48f5-900c-8394d148a606
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MOM % Change' = DIVIDE([Total Sales] - [Previous Month], [Previous Month],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0b18fd40-5788-46a2-94f3-d0aaadc57b80
+
+		changedProperty = FormatString
+
+	measure 'QOQ % Change' = DIVIDE([Total Sales] - [Previous Quarter], [Previous Quarter],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6553e01d-a7a5-4c6c-ae05-a25f1ece3afe
+
+		changedProperty = FormatString
+
+	measure 'WOW % Change' = DIVIDE([Total Sales] - [Previous Week], [Previous Week],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 30bd67b9-0c78-44ce-93b1-59fb7004af95
+
+		changedProperty = FormatString
+
+	measure 'Previous Year' = CALCULATE([Total Sales],SAMEPERIODLASTYEAR('DimDate'[Date]))
+		lineageTag: dccc13b6-4a96-4734-a7fd-71dde89dc3da
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YOY % Change' = DIVIDE([Total Sales] - [Previous Year], [Previous Year],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 44f13003-299e-459c-8312-3cbc67371cec
+
+		changedProperty = FormatString
+
+	measure 'All Sales by Region' = CALCULATE([SUM],ALL(Dim_City[Region]))
+		lineageTag: fc56309e-211e-47b5-9514-01dd0b558b20
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Region Wise % Contribution' = DIVIDE([Total Sales],[All Sales by Region],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b9d8dd33-6060-448b-8281-5ed15a13be61
+
+		changedProperty = FormatString
+
+	measure 'All Sales by Country' = CALCULATE([Total Sales],ALL(Dim_City[Country]))
+		lineageTag: 04a24afb-7e74-4392-828c-46c04fbcae82
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Country Wise % Contribution' = DIVIDE([Total Sales],[All Sales by Country],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 550f25e4-0603-44c2-9a80-253490c1ff47
+
+		changedProperty = FormatString
+
+	measure 'No.of returns' = CALCULATE(COUNT(Fact_Orders[Order ID]),Fact_Orders[Returned] = "Yes")
+		formatString: 0
+		lineageTag: bd9fdbba-404b-43fe-aff4-504095fc9aeb
+
+	measure 'No.of Customers who returned' = CALCULATE(COUNT(Fact_Orders[Customer ID]),Fact_Orders[Returned] = "Yes")
+		formatString: 0
+		lineageTag: a444edd9-bf02-42ae-9b89-49e06dd02ba6
+
+	measure 'Target Value' = CALCULATE([Total Sales] * 1.1, SAMEPERIODLASTYEAR(DimDate[Date]))
+		lineageTag: 84f05e94-6700-4bd4-b605-18532b70ebe4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure URL = "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=GTvVlcSDZdGLRfPKpsxGsplHdjBTKkGLkbBLxpSGJxRTBFLcffsjFLsNpHVBDNRQgHpkGjJKTnZDz"
+		isHidden
+		lineageTag: 13df0d46-a070-4b36-bb92-e63e5cae2272
+
+		changedProperty = IsHidden
+
+	measure CF = SWITCH(TRUE(),[MOM % Change]  <= 0, "Red",  [MOM % Change] <= 0.35,"Yellow",[MOM % Change] > 0.35,"Green")
+		lineageTag: 966a6d47-5db2-46cc-98df-b5544a4718fe
+
+	measure 'All Sales by Market' = CALCULATE([Total Sales],ALL(Fact_Orders[Market]))
+		lineageTag: 97315387-52a6-48a1-abd0-6b86cb1f45e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Wise % Contribution' = DIVIDE([Total Sales],[All Sales by Market],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e6e0614b-2d1f-47a4-84dd-c9b683050a73
+
+		changedProperty = FormatString
+
+	measure 'All Sales by Manager' = ```
+			CALCULATE([Total Sales],ALL('Dim_Regional Managers'[Person]))
+			
+			```
+		lineageTag: 8142b02b-ce55-4005-836b-a53e5e93d04b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Contribution by Manager' = DIVIDE([Total Sales],[All Sales by Manager],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 688f3881-f0c5-4196-8977-67df2eb0c420
+
+		changedProperty = FormatString
+
+	measure 'All Sales by Segment' = CALCULATE([Total Sales],ALL(Fact_Orders[Segment]))
+		lineageTag: bcae5cfd-7f95-4378-bb4d-a0b1d661ff22
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Segment wise % Contribution' = DIVIDE([Total Sales],[All Sales by Segment],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 32a42b37-4602-49b7-89e0-7d8ed44a3dba
+
+		changedProperty = FormatString
+
+	measure ShowYTD = ```
+			
+			IF(
+			    SELECTEDVALUE(ColumnSelector[Column Name]) = "YTD",
+			    SUM(Fact_Orders[Sales]), 
+			    BLANK()
+			)
+			
+			
+			
+			```
+		lineageTag: 4056ff66-7a40-4de9-abf7-26abc6d7b076
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ShowQTD = ```
+			
+			IF(
+			    SELECTEDVALUE(ColumnSelector[Column Name]) = "QTD",
+			    SUM(Fact_Orders[Sales]), 
+			    BLANK()
+			)
+			
+			
+			```
+		lineageTag: bb8523a0-a1b2-48fe-8e78-5a466661a09e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ShowMTD = ```
+			
+			IF(
+			    SELECTEDVALUE(ColumnSelector[Column Name]) = "MTD",
+			    SUM(Fact_Orders[Sales]), 
+			    BLANK()
+			)
+			
+			
+			```
+		lineageTag: 5dd07aa9-5942-4dec-a230-43cc7bb2707a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ShowWTD = ```
+			
+			IF(
+			    SELECTEDVALUE(ColumnSelector[Column Name]) = "WTD",
+			    SUM(Fact_Orders[Sales]), 
+			    BLANK()
+			)
+			```
+		lineageTag: d1fc2931-c939-4373-bbba-9adfedad107d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure DynamicMeasure = ```
+			
+			VAR SelectedColumn = SELECTEDVALUE(ColumnSelector[Column Name])
+			RETURN 
+			    SWITCH(
+			        SelectedColumn,
+			        "YTD", SUM(Fact_Orders[Sales]),
+			        "QTD", SUM(Fact_Orders[Sales]),
+			        "MTD", SUM(Fact_Orders[Sales]),
+			        "WTD", SUM(Fact_Orders[Sales]),
+			        BLANK()
+			    )
+			
+			```
+		lineageTag: c3df0979-0225-4f2f-833c-4b8752680c95
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure DynamicMeasure1 = ```
+			
+			VAR SelectedColumn = SELECTEDVALUE(ColumnSelector[Column Name])
+			VAR IsSelected = COUNTROWS(VALUES(ColumnSelector[Column Name])) > 0  -- Check if any selection is made
+			RETURN 
+			    IF(
+			        IsSelected,  -- Only show data if a selection is made
+			        SWITCH(
+			            SelectedColumn,
+			            "YTD", SUM(Fact_Orders[Sales]),
+			            "QTD", SUM(Fact_Orders[Profit]),
+			            "MTD", SUM(Fact_Orders[Quantity]),
+			            "WTD", SUM(Fact_Orders[Sales]), BLANK()
+			          -- Default to blank if no valid column is found
+			        ),
+			        BLANK()  -- Return blank if no selection is made
+			    )
+			
+			```
+		lineageTag: 36445dcd-b33c-4962-8d7d-a08846971e55
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'DynamicMeasure new' = ```
+			
+			VAR SelectedColumn = SELECTEDVALUE('Dynamic Filter'[Value1])
+			RETURN 
+			    SWITCH(
+			        SelectedColumn,
+			        "YTD", SUM(Fact_Orders[Sales]),
+			        "QTD", SUM(Fact_Orders[Sales]),
+			        "MTD", SUM(Fact_Orders[Sales]),
+			        "WTD", SUM(Fact_Orders[Sales]),
+			        BLANK()
+			    )
+			
+			```
+		lineageTag: e2a215e3-0ce7-4789-9a87-6f92183f54eb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Running Total' = ```
+			
+			CALCULATE(
+			    [Total Sales],
+			    FILTER(ALL(DimDate[Date]), DimDate[Date] <= MAX(DimDate[Date]))
+			)
+			
+			```
+		lineageTag: 8b6510c3-ede9-4798-9edf-2e6397a3a91a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rolling 12M Sales' = ```
+			
+			CALCULATE(
+			    [Total Sales],
+			    DATESINPERIOD(DimDate[Date], MAX(DimDate[Date]), -12, MONTH)
+			)
+			
+			```
+		lineageTag: 8e609278-5b20-4c32-b864-cb32ac5f9f65
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'All Selected Sales by Country' = CALCULATE([Total Sales],ALLSELECTED(Dim_City[Country]))
+		lineageTag: 242e2a2b-9a84-484f-bb25-821c6d26cdea
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'All  Except Sales by Country' = CALCULATE([Total Sales],ALLEXCEPT(Dim_City,Dim_City[Country]))
+		lineageTag: d0845150-a427-4e1a-85db-b4c7381839dc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Count = COUNT(Fact_Orders[Order ID])
+		formatString: 0
+		lineageTag: 82afe999-ffdb-44da-a722-622826069c15
+
+	measure Counta = COUNTA(Fact_Orders[Segment])
+		formatString: 0
+		lineageTag: 0a42cad0-baf5-4d9f-8b4d-a55a6a10d566
+
+	measure Countax = COUNTAX(FILTER(Fact_Orders,Fact_Orders[Sales]<2000),Fact_Orders[Order ID])
+		formatString: 0
+		lineageTag: c4b08400-f0c9-4014-9582-6008bb433a90
+
+	measure Countx = COUNTX(Fact_Orders, Fact_Orders[Order ID])
+		formatString: 0
+		lineageTag: 70c6c724-1f3e-4b5c-bc24-1b0ece6592d2
+
+	measure TopN_Sales_Customers =
+			
+			CALCULATE (
+			    [Total Sales],
+			    TOPN(
+			    10,
+			    SUMMARIZE(
+			        Fact_Orders,
+			        Fact_Orders[Product ID],
+			        "TotalSales", SUM(Fact_Orders[Sales])
+			    ),
+			    [TotalSales],
+			    DESC
+			)
+			)
+		lineageTag: 03897c26-5fa7-4cf8-aba3-0b1eea0a0f8e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Countrows = COUNTROWS(FILTER(Fact_Orders,Fact_Orders[Discount]=1))
+		formatString: 0
+		lineageTag: 2d3455c3-9892-40f3-846c-7fc6ea89ad52
+
+	measure SUM = SUM(Fact_Orders[Total Price])
+		lineageTag: e9987d51-47a5-4648-aa63-992c01828e26
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure SUMX = CALCULATE(SUMX(Fact_Orders, Fact_Orders[Quantity]*Fact_Orders[Sales]+Fact_Orders[Shipping Cost]))
+		lineageTag: a5099770-0ed0-4a5a-acda-0c541be041b3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Removefilters = CALCULATE(SUM(Fact_Orders[Total Price]), REMOVEFILTERS(Dim_City))
+		lineageTag: fee6bd9e-488c-487e-a587-481b17a69fa0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Isfiltered = IF(ISFILTERED(Dim_City[Region]),[SUM], CALCULATE([SUM],Dim_City[Region] = "Central"))
+		lineageTag: 1d47250a-2870-48f8-854b-84dccc037998
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Hasonefilter = IF(HASONEFILTER(Dim_City[Region]),[SUM], CALCULATE([SUM],Dim_City[Region] = "Central"))
+		lineageTag: ade87578-9488-48ae-8434-38cae08d8f91
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Keepfilters1 = CALCULATE([SUM],FILTER(ALLSELECTED(Dim_Subcategory[Sub-Category]),Dim_Subcategory[Sub-Category] IN { "Chairs", "Tables"}))
+		lineageTag: 0aa69a23-dc54-42d6-9484-8ff0d6057d3c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Keepfilters2 = CALCULATE([SUM],KEEPFILTERS(Dim_Subcategory[Sub-Category] IN { "Chairs", "Tables"}))
+		lineageTag: d01e45de-f413-4bb8-bf6c-38eb0a466fdf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total YTD' =
+			CALCULATE(
+			    [Total Sales],
+			    FILTER(ALL(DimDate), DimDate[Month] <= MAX(DimDate[Month]) && DimDate[Year] = MAX(DimDate[Year]))
+			)
+		lineageTag: 05fc20cf-75f4-4997-b5a4-fcc78d9ef783
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Crossfilter = CALCULATE(DISTINCTCOUNT(Dim_Customer[Customer ID]),CROSSFILTER(Fact_Orders[Customer ID],Dim_Customer[Customer ID],Both))
+		formatString: 0
+		lineageTag: 4bc8a71d-b415-4c24-bc03-a45fa78ad81c
+
+	measure ISINSCOPE = ```
+			
+			
+			VAR Sales_Region  = 
+			    CALCULATE(
+			        [SUM], 
+			        ALLSELECTED('Dim_City'[Region])
+			    )
+			
+			VAR Sales_Country  = 
+			    CALCULATE(
+			        [SUM], 
+			        ALLSELECTED(Dim_City[Country])
+			    )
+			
+			VAR Sales_State  = 
+			    CALCULATE(
+			        [SUM], 
+			        ALLSELECTED(Dim_City[State])
+			    )
+			
+			VAR Sales_City  = 
+			    CALCULATE(
+			        [SUM], 
+			        ALLSELECTED(Dim_City[City])
+			    )
+			VAR PCT_Region = DIVIDE([SUM],Sales_Region,0)
+			VAR PCT_Country = DIVIDE([SUM],Sales_Country,0)
+			VAR PCT_State = DIVIDE([SUM],Sales_State,0)
+			VAR PCT_City = DIVIDE([SUM],Sales_City,0)
+			VAR Result = SWITCH(TRUE(),
+			            ISINSCOPE(Dim_City[City]), PCT_City,
+			            ISINSCOPE(Dim_City[State]), PCT_State,
+			            ISINSCOPE(Dim_City[Country]), PCT_Country,
+			            ISINSCOPE(Dim_City[Region]), PCT_Region,
+			            PCT_Region)
+			
+			RETURN 
+			Result
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cd818002-b12e-43b5-a1d6-3e4cd3d87803
+
+	measure 'Last 45 Days Sales' = ```
+			
+			CALCULATE(
+			    [Total Sales],
+			    DATESINPERIOD(
+			        'DimDate'[Date],
+			        MAX('DimDate'[Date]),
+			        -45,
+			        DAY
+			    )
+			)
+			
+			```
+		lineageTag: 4370ef9a-b460-4447-825f-fed3edb009d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Parallel Period' = CALCULATE([Total Sales], PARALLELPERIOD(DimDate[Date], -12,MONTH))
+		lineageTag: 9022ef98-1afb-4fbd-a5eb-fb29374d66d7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Same period last year' = CALCULATE([Total Sales],SAMEPERIODLASTYEAR('DimDate'[Date]))
+		lineageTag: a75b9a27-e4bb-4571-93fb-91587427b51f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Date add' = CALCULATE([Total Sales], DATEADD(DimDate[Date], -12,MONTH))
+		lineageTag: c7d411f6-c099-4dd2-a14f-b5c230c56d5a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rank by Sales' = ```
+			
+			RANKX(
+			    ALLSELECTED(Dim_Subcategory), -- replace with your table
+			    CALCULATE(SUM(Fact_Orders[Profit])),
+			    ,
+			    DESC,
+			    DENSE
+			)
+			
+			```
+		formatString: 0
+		lineageTag: e53a8b3c-2528-403c-8502-8ad35e74100f
+
+	measure 'Show TopN Products' = ```
+			
+			VAR TopNValue = SELECTEDVALUE('Top N'[Top N])
+			VAR ProductRank = [Rank by Sales]
+			RETURN
+			IF(
+			    ISBLANK(TopNValue) || ProductRank <= TopNValue,
+			    1,
+			    0
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 6738d6ef-f784-47af-8cd9-7da9649510a9
+
+	partition 'Measures (2)-466fe666-2f1b-4919-ae12-2a3d241e7b29' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

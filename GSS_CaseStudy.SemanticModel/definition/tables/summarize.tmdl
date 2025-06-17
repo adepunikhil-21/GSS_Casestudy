@@ -1,0 +1,35 @@
+table summarize
+	lineageTag: a0858ed7-ee4a-484f-b72f-d4620f9e8bda
+
+	column Region
+		lineageTag: aec1ff67-111f-45a4-8eb1-a9d01f759d98
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Region]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		lineageTag: 0a2ff29c-9592-4893-a4db-21a61888f5b2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Segment]
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales
+		lineageTag: f625f0b6-afa9-4871-b33b-f3afeeb1f46e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [sales]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition summarize = calculated
+		mode: import
+		source = SUMMARIZE(Fact_Orders, Fact_Orders[Region], Fact_Orders[Segment], "sales", SUM(Fact_Orders[Total Price]))
+
+	annotation PBI_Id = 4cc247f29f9f46bf85fb97b80122ccff
+

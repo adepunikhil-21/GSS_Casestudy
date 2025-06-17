@@ -1,0 +1,64 @@
+relationship 6599600a-6eec-4363-b72a-ec8bc55ba7f8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_Orders.'Ship Date'
+	toColumn: LocalDateTable_38e90962-c808-41ee-8806-b4bdd7baa483.Date
+
+relationship 768c3fbf-9e2f-4281-8493-454a10806272
+	fromColumn: Fact_Orders.Sub-Category
+	toColumn: Dim_Subcategory.Sub-Category
+
+relationship fa6ffcb8-e01b-4a3c-815d-7fe1e7f037bb
+	fromColumn: Fact_Orders.City
+	toColumn: Dim_City.City
+
+relationship ccdcbe9a-4876-42d5-a53f-d4c6f0289fe3
+	fromColumn: Fact_Orders.Region
+	toColumn: 'Dim_Regional Managers'.Region
+
+relationship f8f7456e-b121-4d40-9a3e-841d06dfc88d
+	fromColumn: Fact_Orders.'Customer ID'
+	toColumn: Dim_Customer.'Customer ID'
+
+relationship 76a3fba5-68ab-4f0f-a840-8dcaf98a8d96
+	fromColumn: Fact_Orders.'Product ID'
+	toColumn: Dim_Product.'Product ID'
+
+relationship a9ad794d-007a-4b57-88fa-200ef1517a8b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.Date
+	toColumn: LocalDateTable_0b10b4ed-01d2-49a1-b411-a93e2d09fd25.Date
+
+relationship b0e9b67f-dbfc-4a41-8c76-6435f261e65e
+	fromColumn: Fact_Orders.'Order Date'
+	toColumn: DimDate.Date
+
+relationship faab9816-b0a3-4638-b9f5-691c6ee1a0fd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'ADD COLUMNS'.'Order Date'
+	toColumn: LocalDateTable_68582154-0809-4cea-89c2-4ca535a081c9.Date
+
+relationship da9f8d4e-7081-4024-8e36-79dc28b5550a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'ADD COLUMNS'.'Ship Date'
+	toColumn: LocalDateTable_b6006d3b-ea48-427e-be11-eda80527c71e.Date
+
+relationship 5f3dc692-af88-499d-941a-d5ed4d75bf6f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calculatetable.'Order Date'
+	toColumn: LocalDateTable_bec5d0aa-8a82-4e8f-89c7-b3e4f0926305.Date
+
+relationship 16c9c36d-824c-49e6-94e4-c5bce1d1609d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Filter.'Order Date'
+	toColumn: LocalDateTable_e1f18984-5d51-44fe-972b-ca6825eae46d.Date
+
+relationship 0df9a5e0-1f6b-4dc9-b0ff-9e32c9325e20
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Filter.'Ship Date'
+	toColumn: LocalDateTable_162f335d-bab3-4658-9c02-7a0fed312f6b.Date
+
+relationship 7064146d-5b2b-4832-90d4-dc99efe75a47
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'amazon_sales_data 2025'.'Custom Date'
+	toColumn: LocalDateTable_d40fa105-4d3c-4ec4-91cc-7f6db43fdbc7.Date
+

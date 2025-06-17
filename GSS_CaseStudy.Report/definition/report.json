@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/1.2.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY22SU08",
+      "reportVersionAtImport": "5.35",
+      "type": "SharedResources"
+    }
+  },
+  "layoutOptimization": "PhonePortrait",
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "SunburstVizA96234ADB8D143D1837FEC426BB34781"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY22SU08",
+          "path": "BaseThemes/CY22SU08.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "download18500882227028193.png",
+          "path": "download18500882227028193.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_image9402081099905226.png",
+          "path": "BG_image9402081099905226.png",
+          "type": "Image"
+        },
+        {
+          "name": "gss8016633274215097.jpg",
+          "path": "gss8016633274215097.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "cervello_img8704775894299515.jpg",
+          "path": "cervello_img8704775894299515.jpg",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true
+  },
+  "slowDataSourceSettings": {
+    "isCrossHighlightingDisabled": false,
+    "isSlicerSelectionsButtonEnabled": false,
+    "isFilterSelectionsButtonEnabled": false,
+    "isFieldWellButtonEnabled": false,
+    "isApplyAllButtonEnabled": false
+  }
+}

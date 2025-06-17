@@ -1,0 +1,222 @@
+table Filter
+	lineageTag: 05ad7445-8792-4857-a28c-b23b5f1ccf3c
+
+	column 'Row ID'
+		lineageTag: e4a9a16a-3c8c-4347-a231-4b25b6d02f58
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: Fact_Orders[Row ID]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Order ID'
+		lineageTag: 4b432417-a28a-43a4-ae44-5cf1ea9b6daf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Order ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		formatString: General Date
+		lineageTag: bddf8acb-f6b6-4c18-9583-1cc0c92eaee7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Order Date]
+
+		variation Variation
+			isDefault
+			relationship: 16c9c36d-824c-49e6-94e4-c5bce1d1609d
+			defaultHierarchy: LocalDateTable_e1f18984-5d51-44fe-972b-ca6825eae46d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Date'
+		formatString: General Date
+		lineageTag: da25d7d5-4b56-421b-b6ab-875bfd4cbbdf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Ship Date]
+
+		variation Variation
+			isDefault
+			relationship: 0df9a5e0-1f6b-4dc9-b0ff-9e32c9325e20
+			defaultHierarchy: LocalDateTable_162f335d-bab3-4658-9c02-7a0fed312f6b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Mode'
+		lineageTag: 1cdbd2aa-807c-40f7-ba28-aeac6b0b4d1e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Ship Mode]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		lineageTag: 53f5d3be-35af-4443-b6f1-c6c78e90b93e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Customer ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		lineageTag: afa94212-cc52-4c64-acbd-9bc1cce03dcb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Segment]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Market
+		lineageTag: 56fed3ef-a2c4-4765-bdf8-13b3b8461a4e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Market]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product ID'
+		lineageTag: 0b6ce1a3-f2a6-4d7f-985d-60801d53df8a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Product ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-Category
+		lineageTag: 281af02c-4701-4005-9d54-eb7cb3bbfc4e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Sub-Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		lineageTag: e82621f0-980e-4115-a6e5-34572068c152
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Sales]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		lineageTag: 67b18319-4e3a-451b-abd0-7983d0a4909d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Quantity]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discount
+		lineageTag: 6cfc86e4-8308-41c3-956f-ff2b6441bcc4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Discount]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Profit
+		lineageTag: e09d1ad5-0881-469e-ae7f-86862ca5969d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Profit]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shipping Cost'
+		lineageTag: 3544624d-abe4-46e4-87c4-28b28409ac7a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Shipping Cost]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Order Priority'
+		lineageTag: 5bb1818e-2b38-436d-9ef7-eaabd38c63bc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Order Priority]
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		lineageTag: 0536a461-cd3f-4b26-8501-f6268a2359ba
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[City]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		lineageTag: 44b2cc74-42c9-43e0-835f-1dc567759643
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Region]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Returned
+		lineageTag: cb93f202-0b41-4b83-a66b-22fee944bbe0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Returned]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'No.of Days for shipping'
+		formatString: 0
+		lineageTag: 03dbac48-f06f-4b2f-837f-aa06556b35ac
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[No.of Days for shipping]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Price'
+		lineageTag: 0c2f92d4-03d2-47c1-b9ad-7d5b7939b39a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Total Price]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cost Price'
+		lineageTag: 74279d11-22eb-4afc-adc7-043c31f3d7d9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Fact_Orders[Cost Price]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Product name'
+		lineageTag: f70a980a-9293-4d57-83a0-7ec4dc23f0eb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Product name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Filter = calculated
+		mode: import
+		source = FILTER(Fact_Orders, Fact_Orders[Sales]>2000)
+
+	annotation PBI_Id = 74a68efc883f4fd9b61684575c07a5f5
+

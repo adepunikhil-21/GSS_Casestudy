@@ -1,0 +1,36 @@
+table 'Table (2)'
+	lineageTag: 0c3d95ca-ea03-409f-bad6-6dc33ab174a7
+
+	column Column1
+		dataType: string
+		lineageTag: a1c22330-472b-4e85-8631-39f4380e4bde
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'first name' = LEFT('Table (2)'[Column1], FIND("-",'Table (2)'[Column1],1)-1)
+		lineageTag: a8f9822e-6311-4ca2-b496-54e56a2f4155
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'last name' = RIGHT('Table (2)'[Column1], LEN('Table (2)'[Column1])-FIND("-", 'Table (2)'[Column1],1))
+		lineageTag: b1ae8403-7ca1-47f4-a105-fec54542bf69
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Table (2)' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WSkrNy0rMzczTLc7NLMlQitWJVqqoqNBNAwIwpzg3tzhXtyg7tSgtVyk2FgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

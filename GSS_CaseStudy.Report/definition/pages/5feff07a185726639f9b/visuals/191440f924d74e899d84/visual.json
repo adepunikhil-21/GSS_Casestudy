@@ -1,0 +1,108 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "191440f924d74e899d84",
+  "position": {
+    "x": 16,
+    "y": 384.00000000000006,
+    "z": 0,
+    "height": 336,
+    "width": 640,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_City"
+                    }
+                  },
+                  "Property": "Region"
+                }
+              },
+              "queryRef": "Dim_City.Region",
+              "nativeQueryRef": "Region"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures (2)"
+                    }
+                  },
+                  "Property": "SUM"
+                }
+              },
+              "queryRef": "Measures (2).SUM",
+              "nativeQueryRef": "SUM"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures (2)"
+                    }
+                  },
+                  "Property": "SUMX"
+                }
+              },
+              "queryRef": "Measures (2).SUMX",
+              "nativeQueryRef": "SUMX"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures (2)"
+                    }
+                  },
+                  "Property": "Removefilters"
+                }
+              },
+              "queryRef": "Measures (2).Removefilters",
+              "nativeQueryRef": "Removefilters"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures (2)"
+                    }
+                  },
+                  "Property": "All Sales by Region"
+                }
+              },
+              "queryRef": "Measures (2).All Sales by Region",
+              "nativeQueryRef": "All Sales by Region"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures (2)"
+                    }
+                  },
+                  "Property": "Keepfilters1"
+                }
+              },
+              "queryRef": "Measures (2).Keepfilters",
+              "nativeQueryRef": "Keepfilters1"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

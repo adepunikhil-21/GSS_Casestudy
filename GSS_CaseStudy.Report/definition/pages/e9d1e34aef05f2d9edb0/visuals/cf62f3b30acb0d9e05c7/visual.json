@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "cf62f3b30acb0d9e05c7",
+  "position": {
+    "x": 480.00000000000006,
+    "y": 112,
+    "z": 4000,
+    "height": 128,
+    "width": 256
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "amazon_sales_data 2025"
+                    }
+                  },
+                  "Property": "totalmtd"
+                }
+              },
+              "queryRef": "amazon_sales_data 2025.totalmtd",
+              "nativeQueryRef": "totalmtd"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "amazon_sales_data 2025"
+                  }
+                },
+                "Property": "totalmtd"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

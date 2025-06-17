@@ -1,0 +1,185 @@
+table 'amazon_sales_data 2025'
+	lineageTag: 1526cc9b-6481-4759-8ad6-6fd66a9fb1bf
+
+	measure 'Last 45 Days Sales Amazon' = ```
+			
+			CALCULATE(
+			    SUM('amazon_sales_data 2025'[Total Sales]),
+			    DATESINPERIOD(
+			        'amazon_sales_data 2025'[Custom Date],
+			        MAX('amazon_sales_data 2025'[Custom Date]),
+			        -45,
+			        DAY
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 54dc6df0-ec8f-45df-a619-e9ef2d61e722
+
+	measure '45th date' = MAX('amazon_sales_data 2025'[Custom Date]) - 45
+		formatString: General Date
+		lineageTag: c5f24ac7-e72a-4a93-936c-c72b4d66f069
+
+	measure 'current month flag' = ```
+			
+			VAR current_month = VALUE(FORMAT(TODAY(), "MM"))
+			VAR max_month = MAX('amazon_sales_data 2025'[month number])
+			VAR result = IF(current_month = max_month,1,0)
+			RETURN 
+			result
+			```
+		formatString: 0
+		lineageTag: dbdf0986-9f60-415f-a6d8-51704eb82b29
+
+	measure max_month = MAX('amazon_sales_data 2025'[month number])
+		formatString: 0
+		lineageTag: f627c6b1-22c7-4067-a4a4-f11338d453a8
+
+	measure current_month = FORMAT(TODAY(), "MM")
+		lineageTag: 30e2bc48-9c49-47cf-b168-1aa7236956a5
+
+	measure totalmtd = TOTALMTD(SUM('amazon_sales_data 2025'[Total Sales]), 'amazon_sales_data 2025'[Custom Date])
+		formatString: 0
+		lineageTag: 31a133b3-67c7-460e-bb59-cb8a78dde45b
+
+	column 'Order ID'
+		dataType: string
+		lineageTag: 8f265b29-9ba7-45aa-b40a-fe972eb39fda
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: string
+		lineageTag: c7ad3831-aaf9-4b82-a064-fb5f02167738
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 3c9cf81a-ca2d-4419-a4a0-c24fbe674a74
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: d8631174-d9f5-4d4d-b8b0-c4b7caa43df1
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f272303-116f-44fd-a79d-87fa11893ce2
+		summarizeBy: sum
+		sourceColumn: Price
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c6b3250-6ddb-4dea-aa43-a06b44d7cec5
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Sales'
+		dataType: int64
+		formatString: 0
+		lineageTag: 55858b36-cd0a-4673-a66f-e450b694a4f5
+		summarizeBy: sum
+		sourceColumn: Total Sales
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: 42e7aef7-1e1f-43ca-b30d-b826f96b216f
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Location'
+		dataType: string
+		lineageTag: 0a3a94d5-9703-4e43-bbd0-ce7eb3815930
+		summarizeBy: none
+		sourceColumn: Customer Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment Method'
+		dataType: string
+		lineageTag: a1fbb8da-8237-40ff-82af-382f5d6e7e86
+		summarizeBy: none
+		sourceColumn: Payment Method
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: dfae7c9d-30d2-4f24-be70-0879602fe4de
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Custom Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 190f8501-89c7-461e-992f-536a13f5876f
+		summarizeBy: none
+		sourceColumn: Custom Date
+
+		variation Variation
+			isDefault
+			relationship: 7064146d-5b2b-4832-90d4-dc99efe75a47
+			defaultHierarchy: LocalDateTable_d40fa105-4d3c-4ec4-91cc-7f6db43fdbc7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'month name' = FORMAT('amazon_sales_data 2025'[Custom Date], "MMMM")
+		lineageTag: 70b153ce-a3ea-46f5-8c45-bf376e0b19aa
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'month number' = FORMAT('amazon_sales_data 2025'[Custom Date], "MM")
+		dataType: int64
+		formatString: 0
+		lineageTag: b79ee1ed-6a77-4ac3-8a05-165076066a15
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'amazon_sales_data 2025' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\NIKHIL\Downloads\amazon_sales_data 2025.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Order ID", type text}, {"Product", type text}, {"Category", type text}, {"Price", Int64.Type}, {"Quantity", Int64.Type}, {"Total Sales", Int64.Type}, {"Customer Name", type text}, {"Customer Location", type text}, {"Payment Method", type text}, {"Status", type text}}),
+				    #"Added Custom Column" = Table.AddColumn(#"Changed Type", "Custom", each Text.Combine({Text.Middle([Date], 3, 3), Text.Start([Date], 3),  "20" & Text.End([Date], 2)}), type text),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom Column",{{"Custom", type date}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Custom", "Custom Date"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,28 @@
+table ColumnSelector
+	lineageTag: aa80abc2-5594-4642-b08d-da8798edc99d
+
+	column 'Column Name'
+		lineageTag: 9d90c0e7-34e6-4c9f-a3de-12d02492b935
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Column Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ColumnSelector = calculated
+		mode: import
+		source = ```
+				DATATABLE(
+				    "Column Name", STRING,
+				    {
+				        {"YTD"},
+				        {"QTD"},
+				        {"MTD"},
+				        {"WTD"}
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = e3b45c7d65354adc99b6107bcd88f8db
+

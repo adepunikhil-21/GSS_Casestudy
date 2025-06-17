@@ -1,0 +1,53 @@
+table 'dynamic measure'
+	lineageTag: 7f484f5c-5b16-4a95-8aa6-2b0e834b9bd0
+
+	column 'dynamic measure'
+		lineageTag: 74d346f2-cbb4-4c8c-a4bf-2945160f8084
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'dynamic measure Order'
+
+		relatedColumnDetails
+			groupByColumn: 'dynamic measure Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dynamic measure Fields'
+		isHidden
+		lineageTag: b4122efe-6c90-48fe-a844-dc3b6377205a
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'dynamic measure Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dynamic measure Order'
+		isHidden
+		formatString: 0
+		lineageTag: 37ccd32f-04c3-4213-9ba5-65f4e554e330
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'dynamic measure' = calculated
+		mode: import
+		source =
+				{
+				    ("Total Sales", NAMEOF('Measures (2)'[Total Sales]), 0),
+				    ("No.of returns", NAMEOF('Measures (2)'[No.of returns]), 1),
+				    ("All Sales by Country", NAMEOF('Measures (2)'[All Sales by Country]), 2),
+				    ("All Sales by Manager", NAMEOF('Measures (2)'[All Sales by Manager]), 3),
+				    ("All Sales by Market", NAMEOF('Measures (2)'[All Sales by Market]), 4),
+				    ("All Sales by Region", NAMEOF('Measures (2)'[All Sales by Region]), 5),
+				    ("All Sales by Segment", NAMEOF('Measures (2)'[All Sales by Segment]), 6)
+				}
+
+	annotation PBI_Id = e5b7d10be1344e1f897d76235714a4bf
+

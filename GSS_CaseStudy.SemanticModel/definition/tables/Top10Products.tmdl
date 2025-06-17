@@ -1,0 +1,39 @@
+table Top10Products
+	lineageTag: 4827558e-60bf-4992-b31a-48106f49afc6
+
+	column 'Product ID'
+		lineageTag: 007bd9f1-cfbc-4b14-b566-14adfdf97608
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fact_Orders[Product ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalSales
+		lineageTag: 2dab0bf9-ed95-4da7-be6f-382dea46cdbe
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TotalSales]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Top10Products = calculated
+		mode: import
+		source = ```
+				
+				TOPN(
+				    10,
+				    SUMMARIZECOLUMNS(
+				        Fact_Orders[Product ID],
+				        "TotalSales", SUM(Fact_Orders[Sales])
+				    ),
+				    [TotalSales],
+				    DESC
+				)
+				
+				```
+
+	annotation PBI_Id = 703923d0f1ac42ebbe9dd603866227fa
+

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "99365717d3d2d125281d",
+  "position": {
+    "x": 368,
+    "y": 128,
+    "z": 0,
+    "height": 304,
+    "width": 288
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "amazon_sales_data 2025"
+                    }
+                  },
+                  "Property": "Last 45 Days Sales Amazon"
+                }
+              },
+              "queryRef": "amazon_sales_data 2025.Last 45 Days Sales Amazon",
+              "nativeQueryRef": "Last 45 Days Sales Amazon"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "amazon_sales_data 2025"
+                  }
+                },
+                "Property": "Last 45 Days Sales Amazon"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,51 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Fact_Orders","Dim_Regional Managers","Dim_Product","Dim_Customer","Dim_City","Dim_Subcategory","Measures (2)","Table","Table (2)","amazon_sales_data 2025"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.140.1577.0 (25.02)+00af0910c5ca19a229c472b0dfc17a2c488f6b0a
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Fact_Orders
+ref table DateTableTemplate_d3ab4172-815e-4161-9a20-633a83a92cba
+ref table LocalDateTable_38e90962-c808-41ee-8806-b4bdd7baa483
+ref table 'Dim_Regional Managers'
+ref table Dim_Product
+ref table Dim_Customer
+ref table Dim_City
+ref table Dim_Subcategory
+ref table DimDate
+ref table LocalDateTable_0b10b4ed-01d2-49a1-b411-a93e2d09fd25
+ref table 'Measures (2)'
+ref table Table
+ref table 'Table (2)'
+ref table ColumnSelector
+ref table 'Dynamic Filter'
+ref table 'dynamic measure'
+ref table Filter
+ref table summarize
+ref table 'summarize columns'
+ref table 'Field Switch'
+ref table 'ADD COLUMNS'
+ref table LocalDateTable_68582154-0809-4cea-89c2-4ca535a081c9
+ref table LocalDateTable_b6006d3b-ea48-427e-be11-eda80527c71e
+ref table Top10Products
+ref table Calculatetable
+ref table LocalDateTable_bec5d0aa-8a82-4e8f-89c7-b3e4f0926305
+ref table LocalDateTable_e1f18984-5d51-44fe-972b-ca6825eae46d
+ref table LocalDateTable_162f335d-bab3-4658-9c02-7a0fed312f6b
+ref table Filters
+ref table 'amazon_sales_data 2025'
+ref table LocalDateTable_d40fa105-4d3c-4ec4-91cc-7f6db43fdbc7
+ref table 'Top N'
+
+ref cultureInfo en-US
+

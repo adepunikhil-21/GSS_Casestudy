@@ -1,0 +1,20 @@
+table Filters
+	lineageTag: 7004f871-3dac-4aec-a66a-3288708a85a8
+
+	column Category
+		lineageTag: 9105ff92-4477-47d0-b599-d717fff4a757
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim_Subcategory[Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Filters = calculated
+		mode: import
+		source = ```
+				FILTERS(Dim_Subcategory[Category])
+				
+				```
+
+	annotation PBI_Id = 793ac744085b48459bc1eca2745a4b55
+

@@ -1,0 +1,87 @@
+table DimDate
+	lineageTag: 739e1a64-a6e8-4145-b2cf-30e952693c61
+
+	measure 'Profit %' = DIVIDE(SUM(Fact_Orders[Total Price]) - SUM(Fact_Orders[Cost Price]), SUM(Fact_Orders[Cost Price]))
+		lineageTag: ac2c41a9-5ea8-4e09-91bc-a0a5743ec8d7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		formatString: Short Date
+		lineageTag: 9ab14eee-77d1-498d-85dc-e3b14315bbc9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: a9ad794d-007a-4b57-88fa-200ef1517a8b
+			defaultHierarchy: LocalDateTable_0b10b4ed-01d2-49a1-b411-a93e2d09fd25.'Date Hierarchy'
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR(DimDate[Date])
+		formatString: 0
+		lineageTag: 5bab2f4a-31e9-4e3e-807f-045f7453d000
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column Month = MONTH(DimDate[Date])
+		formatString: 0
+		lineageTag: 3098a11d-0cb6-4e48-bd7f-eaf15a2f302d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Month Name' = FORMAT(DimDate[Date],"mmmm")
+		lineageTag: b19e5f89-d360-448b-847a-a6db8d0eead0
+		summarizeBy: none
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter = "QTR" & "_" & QUARTER(DimDate[Date])
+		lineageTag: a4ad7c22-5cbc-4988-8cb5-78d54b862bb6
+		summarizeBy: none
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = User
+
+	column 'Week Number' = WEEKNUM(DimDate[Date])
+		formatString: 0
+		lineageTag: 4b6b2af1-dedb-4f0a-8f6f-d38be8710698
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Weekday Number' = WEEKDAY(DimDate[Date])
+		formatString: 0
+		lineageTag: e0e30c38-42e7-4a45-baa6-9da11eb1e956
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Weekday Name' = FORMAT(DimDate[Date],"dddd")
+		lineageTag: 89ddee4c-ff5c-4043-9cfb-cb4220ca723e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Type' = IF(DimDate[Weekday Name] = "Saturday" || DimDate[Weekday Name] = "Sunday","Weekend","Weekday")
+		lineageTag: bec59c27-9cdc-4b91-9186-54decd9726e1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate-cd77628e-2484-4bc6-958e-aa750fe9db5b = calculated
+		mode: import
+		source = CALENDARAUTO()
+
+	annotation PBI_Id = 6b0c60b117e346cf9aa71dfd94d60605
+

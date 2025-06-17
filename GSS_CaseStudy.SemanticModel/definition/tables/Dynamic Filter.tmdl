@@ -1,0 +1,33 @@
+table 'Dynamic Filter'
+	lineageTag: 18124905-af2f-4f91-ae14-4519686cec7d
+
+	column Value1
+		lineageTag: af7d9bf6-9c87-4806-b526-c2050a03bc11
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value2
+		isHidden
+		formatString: 0
+		lineageTag: cbffb216-bfc0-41c1-8d5d-851c88f9744b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dynamic Filter' = calculated
+		mode: import
+		source =
+				{
+				    ("YTD",0),
+				    ("QTD",1),
+				    ("MTD",2),
+				    ("WTD",3)
+				}
+
+	annotation PBI_Id = ee7422a163d946048b08b2f63a6eadfe
+

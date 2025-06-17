@@ -1,0 +1,31 @@
+table 'Dim_Regional Managers'
+	lineageTag: 5ecc8bff-6bba-4859-87b5-c0941d310308
+
+	column Person
+		dataType: string
+		lineageTag: c51c5b5b-0f65-4010-9089-1824a9f8ab26
+		summarizeBy: none
+		sourceColumn: Person
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 0b07933d-b326-40cb-bd92-b40a9be7cb40
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim_Regional Managers-3fd630e9-48e8-4864-a1bb-4907681fc7c0' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("ANIKHI01PC0722\SQLEXPRESS"),
+				    #"Case Study" = Source{[Name="Case Study"]}[Data],
+				    #"dbo_'Regional Managers$'" = #"Case Study"{[Schema="dbo",Item="'Regional Managers$'"]}[Data]
+				in
+				    #"dbo_'Regional Managers$'"
+
+	annotation PBI_ResultType = Table
+

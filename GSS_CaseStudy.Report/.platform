@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "GSS_CaseStudy"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ff447802-c2a9-4c55-9a2f-50a3930edd0e"
+  }
+}
